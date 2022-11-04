@@ -31,3 +31,13 @@ const save = async (user) => {
 module.exports = {
 	save,
 };
+
+
+// {
+//     "email": "20213tn124@utez.edu.mx",
+//     "password": "josa",
+//     "role": "ADMIN",
+//     "personal": {
+//         "id": 11
+//     }
+// }

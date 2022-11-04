@@ -1,4 +1,5 @@
 const { Response, Router } = require("express");
+const { checkRoles, auth } = require("../../../config/jwt");
 const { validateError } = require("../../../utils/functions");
 const { findAll, findById, save } = require("./personal.gateway");
 
@@ -58,7 +59,7 @@ const insert = async (req, res = Response) => {
 };
 
 const personalRouter = Router();
-personalRouter.get("/", [], getAll); //GET -> !body
+personalRouter.get("/", [auth, checkRoles(['ADMIN'])], getAll); //GET -> !body
 personalRouter.get("/:id", [], getById);
 personalRouter.post("/", [], insert); //POST -> body
 
