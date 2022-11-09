@@ -1,5 +1,6 @@
-const { Response } = require('express');
+const { Response, Router } = require('express');
 const { validateError } = require('../../../utils/functions');
+const { findAll } = require('./position.gateway');
 
 const getAll = async (req, res = Response) => {
 	try {

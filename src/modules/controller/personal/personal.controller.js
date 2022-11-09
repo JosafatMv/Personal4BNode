@@ -1,7 +1,7 @@
-const { Response, Router } = require("express");
-const { checkRoles, auth } = require("../../../config/jwt");
-const { validateError } = require("../../../utils/functions");
-const { findAll, findById, save } = require("./personal.gateway");
+const { Response, Router } = require('express');
+const { checkRoles, auth } = require('../../../config/jwt');
+const { validateError } = require('../../../utils/functions');
+const { findAll, findById, save } = require('./personal.gateway');
 
 const getAll = async (req, res = Response) => {
 	try {
@@ -17,7 +17,7 @@ const getAll = async (req, res = Response) => {
 const getById = async (req, res = Response) => {
 	try {
 		const { id } = req.params;
-		if (Number.isNaN(id)) throw Error("Wrong type");
+		if (Number.isNaN(id)) throw Error('Wrong type');
 		const results = await findById(id);
 		res.status(200).json(results);
 	} catch (err) {
@@ -41,7 +41,7 @@ const insert = async (req, res = Response) => {
 		});
 
 		const personRegistered = {
-            id: results.insertId,
+			id: results.insertId,
 			name,
 			surname,
 			lastname,
@@ -59,10 +59,21 @@ const insert = async (req, res = Response) => {
 };
 
 const personalRouter = Router();
-personalRouter.get("/", [auth, checkRoles(['ADMIN'])], getAll); //GET -> !body
-personalRouter.get("/:id", [], getById);
-personalRouter.post("/", [], insert); //POST -> body
+personalRouter.get('/', [auth, checkRoles(['ADMIN'])], getAll); //GET -> !body
+personalRouter.get('/:id', [], getById);
+personalRouter.post('/', [], insert); //POST -> body
 
 module.exports = {
 	personalRouter,
 };
+
+// {
+// 	"name": "Betjader",
+// 	"surname": "Ortiz",
+// 	"lastname": "Dominguez",
+// 	"salary": 12000,
+// 	"position": {
+// 	  "id": 1
+// 	},
+// 	"birthday": "2003-01-21"
+//   }

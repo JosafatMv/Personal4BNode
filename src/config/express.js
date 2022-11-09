@@ -5,6 +5,9 @@ const {
 	userRouter,
 	authRouter,
 } = require('../modules/controller/routes');
+const {
+	positionRouter,
+} = require('../modules/controller/position/position.cotroller');
 require('dotenv').config();
 
 const app = express();
@@ -28,6 +31,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/api/personal', personalRouter);
+app.use('/api/position', positionRouter);
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
 
