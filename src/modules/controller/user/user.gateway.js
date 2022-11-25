@@ -32,7 +32,6 @@ module.exports = {
 	save,
 };
 
-
 // {
 //     "email": "20213tn124@utez.edu.mx",
 //     "password": "josa",
