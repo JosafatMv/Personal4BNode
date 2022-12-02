@@ -41,8 +41,34 @@ const save = async (person) => {
 	]);
 };
 
+const updateById = async (person) => {
+	if (
+		!person.name ||
+		!person.surname ||
+		!person.birthday ||
+		!person.salary ||
+		!person.position.id ||
+		!person.id
+	)
+		throw Error('Missing fields');
+
+	const sql =
+		'UPDATE personal set nombre = ?, apellidoP = ?, apellidoM = ?, fecNac = ?, sueldo = ?, puesto = ? WHERE id = ?';
+
+	return await query(sql, [
+		person.name,
+		person.surname,
+		person.lastname,
+		person.birthday,
+		person.salary,
+		person.position.id,
+		person.id,
+	]);
+};
+
 module.exports = {
 	findAll,
 	findById,
 	save,
+	updateById,
 };

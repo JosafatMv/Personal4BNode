@@ -1,7 +1,7 @@
 const { Response, Router } = require('express');
 const { checkRoles, auth } = require('../../../config/jwt');
 const { validateError } = require('../../../utils/functions');
-const { findAll, findById, save } = require('./personal.gateway');
+const { findAll, findById, save, updateById } = require('./personal.gateway');
 
 const getAll = async (req, res = Response) => {
 	try {
@@ -58,10 +58,43 @@ const insert = async (req, res = Response) => {
 	}
 };
 
+const update = async (req, res = Response) => {
+	try {
+		const { name, surname, lastname, birthday, salary, position, id } =
+			req.body;
+		const results = await updateById({
+			name,
+			surname,
+			lastname,
+			birthday,
+			salary,
+			position,
+			id,
+		});
+
+		const personUpdated = {
+			id,
+			name,
+			surname,
+			lastname,
+			birthday,
+			salary,
+			position,
+		};
+
+		res.status(200).json(personUpdated);
+	} catch (err) {
+		console.log(err);
+		const message = validateError(err);
+		res.status(400).json({ message });
+	}
+};
+
 const personalRouter = Router();
 personalRouter.get('/', [auth, checkRoles(['ADMIN'])], getAll); //GET -> !body
 personalRouter.get('/:id', [], getById);
 personalRouter.post('/', [], insert); //POST -> body
+personalRouter.put('/', [], update);
 
 module.exports = {
 	personalRouter,
